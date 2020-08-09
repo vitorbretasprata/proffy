@@ -1,31 +1,30 @@
-let x, i, j, l, ll, selectElement, a, b, c;
+let x, i, j, selectElement, a, b, c;
 
 x = document.querySelectorAll(".select-block");
-l = x.length;
 
-for(i = 0; i < l; i++) {
+for(i = 0; i < x.length; i++) {
     selectElement = x[i].querySelector("select");
-    ll = selectElement.length;
 
     a = document.createElement("div");
-    a.setAttribute("class", "select-selected");
+    a.setAttribute("class", "select-element-selected");
     a.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
     x[i].appendChild(a);
 
     b = document.createElement("div");
-    b.setAttribute("class", "select-items select-hide");
+    b.setAttribute("class", "select-items select-hidden");
 
-    for(j = 0; j < ll; j++) {
+    for(j = 0; j < selectElement.length; j++) {
         c = document.createElement("div");
         c.innerHTML = selectElement.options[j].innerHTML;
+        console.log(c.parentNode)
         c.addEventListener("click", (e) => {
-            let y, i, k, s, h, sl, yl;
+            let y, i, k, s, h, yl;
 
-            s = this.parentNode.parentNode.getElementByTagName("select")[0];
-            sl = s.length;
+            s = this.parentNode.parentNode.querySelector("select");
+
             h = this.parentNode.previousSibling;
 
-            for(i = 0; i < sl; i++) {
+            for(i = 0; i < s.length; i++) {
                 if(s.options[i].innerHTML == this.innerHTML) {
                     s.selectedIndex = i;
 
@@ -51,7 +50,7 @@ for(i = 0; i < l; i++) {
     a.addEventListener("click", function(e) {
         e.stopPropagation();
         closeAllSelect(this);
-        this.nextSibling.classList.toggle("select-hide");
+        this.nextSibling.classList.toggle("select-hidden");
         this.classList.toggle("select-arrow-active");
     });
 }
@@ -59,7 +58,7 @@ for(i = 0; i < l; i++) {
 function closeAllSelect(elmnt) {
     var x, y, i, xl, yl, arrNo = [];
     x = document.getElementsByClassName("select-items");
-    y = document.getElementsByClassName("select-selected");
+    y = document.getElementsByClassName("select-element-selected");
     xl = x.length;
     yl = y.length;
     for (i = 0; i < yl; i++) {
@@ -71,7 +70,7 @@ function closeAllSelect(elmnt) {
     }
     for (i = 0; i < xl; i++) {
       if (arrNo.indexOf(i)) {
-        x[i].classList.add("select-hide");
+        x[i].classList.add("select-hidden");
       }
     }
 }
