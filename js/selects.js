@@ -15,27 +15,27 @@ for(i = 0; i < x.length; i++) {
 
     for(j = 0; j < selectElement.length; j++) {
         c = document.createElement("div");
+
         c.innerHTML = selectElement.options[j].innerHTML;
-        console.log(c.parentNode)
         c.addEventListener("click", (e) => {
             let y, i, k, s, h, yl;
 
-            s = this.parentNode.parentNode.querySelector("select");
+            s = e.target.parentNode.parentNode.querySelector("select");
 
-            h = this.parentNode.previousSibling;
+            h = e.target.parentNode.previousSibling;
 
             for(i = 0; i < s.length; i++) {
-                if(s.options[i].innerHTML == this.innerHTML) {
+                if(s.options[i].innerHTML == e.target.innerHTML) {
                     s.selectedIndex = i;
 
-                    h.innerHTML = this.innerHTML;
+                    h.innerHTML = e.target.innerHTML;
 
-                    y = this.parentNode.getElementsByClassName("same-as-selected");
+                    y = e.target.parentNode.getElementsByClassName("same-as-selected");
                     yl = y.length;
                     for (k = 0; k < yl; k++) {
-                    y[k].removeAttribute("class");
+                      y[k].removeAttribute("class");
                     }
-                    this.setAttribute("class", "same-as-selected");
+                    e.target.setAttribute("class", "same-as-selected");
                     break;
                 }
             }
@@ -44,6 +44,7 @@ for(i = 0; i < x.length; i++) {
 
         });
         b.appendChild(c);
+
 
     }
     x[i].appendChild(b);
